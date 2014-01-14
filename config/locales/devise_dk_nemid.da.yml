@@ -1,0 +1,43 @@
+da:
+  devise:
+    dk_nemid:
+      shortcut:
+        header: "Genveje:"
+        login:
+          title: "Gå direkte til loginvalg"
+          text: "Loginvalg"
+        menu:
+          title: "Gå direkte til hovedindhold"
+          text: "Hovedindhold"
+      login:
+        otp: "Log ind med nøglekort"
+        software: "Log ind med nøglefil"
+        digitalsignatur: "Log ind med Digital Signatur"
+      access:
+        title: "Få teksten læst op - link til Adgangforalle.dk (åbner i nyt vindue)"
+        text: "Oplæsning af tekst"
+      otp:
+        login: "Log ind med engangsnøgle"
+        remember: "Husk jeg vil logge ind med nøglekort"
+      software:
+        login: "Log ind uden engangsnøgle"
+        remember: "Husk jeg vil logge ind med nøglefil"
+      digitalsignatur:
+        login: "Log ind med digital signatur"
+        remember: "Husk jeg vil logge ind med digital signatur"
+      image:
+        otp: "Nøglekort"
+        software: "Log ind med nøglefil"
+        digitalsignatur: "Digital Signatur (logo)"
+        hardware: "Log ind med nøglefil på hardware"
+      help:
+        text: "Få hjælp nu"
+        title: "Klik her for at få hjælp nu"
+      order:
+        text: "Bestil NemID"
+        title: "Klik her for at bestille NemID"
+      forgot:
+        text: "Glemt adgangskode"
+        title: "Klik her hvis du har glemt din adgangskode"
+
+

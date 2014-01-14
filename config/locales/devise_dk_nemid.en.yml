@@ -1,0 +1,47 @@
+en:
+  devise:
+    dk_nemid:
+      no_signature_properties: "Nemid response has no signature properties"
+      challenge_incorrect: "Challenge not correct. Please try again"
+      wrong_content_length: "Expected signed content length 1, but found %{count}"
+      cert_verify_failed: "Certificate verification failed %{code} - %{reason}"
+      wrong_cert_type: "Can't determine certificate type"
+      failure: "Failure to validate Nemid logon"
+      shortcut:
+        header: "Shortcuts:"
+        login:
+          title: "Directly to login choice"
+          text: "Login choice"
+        menu:
+          title: "Directly to main content"
+          text: "Main content"
+      login:
+        keycard: "Login with keycard"
+        software: "Login with key file"
+        digitalsignatur: "Login with Digital Signature"
+      access:
+        title: "Få teksten læst op - link til Adgangforalle.dk (åbner i nyt vindue)"
+        text: "Read the text aloud"
+      otp:
+        login: "Login with one-time key"
+        remember: "Remember that I want to use keycard"
+      software:
+        login: "Login without one-time key"
+        remember: "Remember that I want to use keyfile"
+      digitalsignatur:
+        login: "Login with one-time key"
+        remember: "Remember that I want to use digital signature"
+      image:
+        otp: "Keycard"
+        software: "Log in with keyfile"
+        digitalsignatur: "Log in with digital signature"
+        hardware: "Log in with keyfile on hardware"
+      help:
+        text: "Get help"
+        title: "Click here to get help now"
+      order:
+        text: "Order NemID"
+        title: "Click here to order NemID"
+      forgot:
+        text: "Forgotten password"
+        title: "Click here if you have forgotten your password"

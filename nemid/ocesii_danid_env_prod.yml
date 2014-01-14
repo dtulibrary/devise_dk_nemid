@@ -1,0 +1,16 @@
+# Configuration of NemId OCESII production environement
+# Values are from the following file in NemId package:
+#   tu_package/ooapi-1.161.0-source/src/main/resources/ooapi.properties
+ldap_server_danid: "crldir.certifikat.dk"
+ldap_ca_dn_danid: "CN=TRUST2408 OCES CA I,O=TRUST2408,C=DK"
+crl_searchbase: "o=trust2408,c=dk"
+pid_service_url: "https://pidws.certifikat.dk/pid_serviceprovider_server/pidws"
+#pid_service_url: "http://temporary.cvt.dk/pid_serviceprovider_server/pidws"
+rid_service_url: "https://ws-erhverv.pp.certifikat.dk/rid_serviceprovider_server/services/HandleSundhedsportalWSPort" 
+poces_policy_prefix: "1.2.208.169.1.1.1.1"
+moces_policy_prefix: "1.2.208.169.1.1.1.2" 
+voces_policy_prefix: "1.2.208.169.1.1.1.3" 
+foces_policy_prefix: "1.2.208.169.1.1.1.4"
+nemid_applet_server_url: "https://applet.danid.dk"
+oces_applet_server_url: "https://opensign.certifikat.dk"
+oces_applet_name: "OpenSign-bootstrapped.jar"

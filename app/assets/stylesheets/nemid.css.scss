@@ -1,0 +1,330 @@
+/**
+ * Copyright (c) 2010, DanID A/S
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  - Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *  - Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *  - Neither the name of the DanID A/S nor the names of its contributors may
+ *    be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ Accessibility
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.dk_nemid_accessibility {
+  position: absolute;
+  top: -9999em;
+  left: -9999em;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ Typography
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+h1.dk_nemid,
+h2.dk_nemid {
+  font-size: 1.6em;
+  font-weight: normal;
+  line-height: 24px;
+  margin: 0 0 15px;
+  padding: 0 0 5px;
+  border-bottom: 1px solid #aaacae;
+}
+p.dk_nemid,
+a.dk_nemid {
+  font-size: 1.2em;
+  font-weight: normal;
+  line-height: 18px;
+}
+a.dk_nemid {
+  text-decoration: none;
+  color: #0567ac;
+}
+img.dk_nemid {
+  border: none;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ Lists
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ul.dk_nemid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+ol.dk_nemid {
+  margin: 0;
+  padding-left: 25px;
+
+  li.dk_nemid {
+    margin: 5px 0;
+  }
+}
+dl.dk_nemid {
+  font-size: 1.2em;
+  margin: 2px 0 0;
+}
+dt.dk_nemid,
+dd.dk_nemid {
+  margin: 0;
+  display: inline;
+  color: #414141;
+}
+
+#dk_nemid_app_placeholder.wide {
+  width: 476px;
+
+  dl {
+    margin-bottom: 5px;
+    padding: 20px;
+    border: 1px solid #BCCCCB;
+
+    input.submit {
+      width: auto;
+      padding: 1px 6px;
+      font-weight: bold;
+      background: image_url('bg_button.png') repeat-x 0 50%;
+      overflow: visible;
+      border: 1px solid #919797;
+      font-size: 1em;
+    }
+  }
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ Formelements
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+form.dk_nemid {
+  margin: 0;
+  padding: 0;
+}
+fieldset.dk_nemid {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+legend.dk_nemid {
+  display: none;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ Layout
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+#dk_nemid_header_wrapper {
+  width: 100%;
+  background: #002a50 image_url('tabmenu.png') repeat-x 0 100%;
+}
+#dk_nemid_header {
+  position: relative;
+  width: 1200px;
+  height: 100px;
+  margin: 0 auto;
+}
+#dk_nemid_logo {
+  position: absolute;
+  top: 72px;
+  left: 5px;
+}
+
+.dk_nemid_tools {
+  position: absolute;
+  top: 15px;
+  right: 34px;
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      float: left;
+
+      a {
+        display: block;
+        width: 32px;
+        height: 25px;
+      }
+    }
+    li#dk_nemid_speaker {
+      a {
+        background: image_url('speaker.png') no-repeat 50% 50%;
+      }
+    }
+  }
+}
+
+.button-wrapper        { position: absolute; bottom: 8px; right: 1px; }
+.button-wrapper a       { float: left; margin-right: 5px; padding: 0 57px; line-height: 24px; display: block; color: #fff; background: #ff8a2c; }
+
+/* tab menu */
+ul#dk_nemid_tabs {
+  position: absolute;
+  bottom: 0;
+
+  li {
+    float: left;
+    margin: 0 5px;
+    padding: 0;
+    list-style-type: none;
+    background: image_url('tab_left.png') no-repeat 0 0;
+
+    a {
+      float: left;
+      display: block;
+      height: 53px;
+      padding: 0;
+      color: #35353d;
+      text-decoration: none;
+      background: image_url('tab_right.png') no-repeat 100% 0;
+
+      span {
+        float: left;
+        padding: 12px 30px 10px 14px;
+        font-size: 1.166em;
+        line-height: 24px;
+        color: #fff;
+        cursor: pointer;
+      }
+    }
+  }
+
+  li.selected,
+  li.selected:hover {
+    margin: 0 6px 0 -2px;
+    padding: 0 9px 0 10px;
+    background: image_url('tab_selected_left.png') no-repeat 0 0;
+
+    a {
+      margin-right: -22px;
+      padding-right: 8px;
+      display: block;
+      background: image_url('tab_selected_right.png') no-repeat 100% 0;
+
+      span {
+        padding-left: 11px;
+        padding-right: 33px;
+        color: #35353d;
+      }
+      span.nemidLogo {
+        background: image_url('tab_nemid_selected.png') no-repeat 62% 75%;
+      }
+      span.digitalSignaturLogo {
+        background: image_url('tab_digital_signatur_selected.png') no-repeat
+          62% 65%;
+      }
+    }
+  }
+
+  li:hover {
+    background: image_url('tab_hover_left.png') no-repeat 0 0;
+
+    a {
+      background: image_url('tab_hover_right.png') no-repeat 100% 0;
+    }
+  }
+
+  li {
+    a {
+      span.nemidLogo {
+        height: 16px;
+        padding: 10px;
+        width: 52px;
+        background: image_url('tab_nemid.png') no-repeat 75% 75%;
+      }
+
+      span.digitalSignaturLogo {
+        height: 16px;
+        padding: 13px 10px;
+        width: 69px;
+        background: image_url('tab_digital_signatur.png') no-repeat 75% 65%;
+      }
+    }
+  }
+
+}
+
+#dk_nemid_content_wrapper {
+  width: 100%;
+  min-height: 600px;
+  background-color: #fff;
+}
+#dk_nemid_content {
+  position: relative;
+  width: 964px;
+  margin: 0 auto;
+  padding: 50px 0 20px;
+  overflow: hidden;
+}
+
+#dk_nemid_right_col {
+  float: left;
+  width: 365px;
+  margin-left: 70px;
+}
+
+#dk_nemid_login_wrapper { overflow: hidden; }
+#dk_nemid_signer_wrapper.wide       { width: 644px; }
+#dk_nemid_signer_wrapper #right_col     { width: 197px; }
+
+ul.dk_nemid_linkList a {
+  padding-left: 15px;
+  text-decoration: none;
+  background: image_url('arrow.png') no-repeat 0 50%;
+}
+
+.dk_nemid_thumbs {
+  margin: 5px 0 30px;
+
+  li { margin-bottom: 25px; }
+}
+
+a.dk_nemid_btn {
+  padding: 2px 15px;
+  color: #000;
+  border-top: 1px solid #d0d0d0;
+  border-bottom: 1px solid #d0d0d0;
+  background: #fff;
+}
+
+/* Application placeholder */
+#dk_nemid_app_placeholder {
+  float: left;
+
+  form { margin-top: 7px; }
+}
+
+p.dk_nemid_remember {
+  label {
+    display: inline-block;
+    padding-left: 17px;
+    text-indent: -15px;
+    cursor: pointer;
+  }
+  input {
+    position: relative;
+    top: -1px;
+    width: 13px;
+    height: 13px;
+    margin:0;
+    padding: 0;
+    vertical-align: bottom;
+    border: none;
+  }
+}
+
