@@ -26,7 +26,8 @@ class Devise::Models::DkNemidProperties
 
   def initialize
     @my_cert = OpenSSL::PKCS12::new( File.read(
-      File.expand_path("nemid/#{Devise.dk_nemid_environment}.p12", Rails.root)
+      File.expand_path("#{Devise.dk_nemid_certificate_path}/"+
+        "#{Devise.dk_nemid_environment}.p12", Rails.root)
       ), Devise.dk_nemid_certificate_password)
     # TODO: Check expired status
     @my_key = OpenSSL::PKey::RSA.new(@my_cert.key,
@@ -43,12 +44,8 @@ class Devise::Models::DkNemidProperties
     config.each do |k, v|
       send("#{k}=", v)
     end
-    #@danid_certs.add_crl( OpenSSL::X509::CRL.new (
-    #  File.expand_path("../../../nemid/oces_crl.pem",
-    #    File.dirname(__FILE__))
-    #))
     @danid_certs.purpose = OpenSSL::X509::PURPOSE_ANY
-    # We want to all these things checked
+    # We want all these things checked
     @danid_certs.flags = OpenSSL::X509::V_FLAG_CB_ISSUER_CHECK |
 #      OpenSSL::X509::V_FLAG_CRL_CHECK |
       OpenSSL::X509::V_FLAG_CRL_CHECK_ALL |

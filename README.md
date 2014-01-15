@@ -43,6 +43,7 @@ Each will be explained further down.
 
   Devise.dk_nemid_environment = 'ocesii_danid_env_prod'
   Devise.dk_nemid_certificate_pasword = 'secret'
+  Devise.dk_nemid_certificate_path = 'nemid'
   Devise.dk_nemid_allowed = ['otp', 'software', 'digitalsignatur']
 
   Devise.dk_nemid_cpr_service = 'none'
@@ -63,6 +64,11 @@ environment
   ocesii_danid_env_externaltest - Use the test environment
   Read the NemId documention for more information or take a look in 
   nemid/ca for known root certificates for environments.
+
+certificate_path
+  The path to certificate used with Nemid.
+  This may be a full path or a partial path. Partial path will be relative
+  to Rails.root.
 
 certificate_password
   The password for the certificate

@@ -5,6 +5,9 @@ module Devise
   mattr_accessor :dk_nemid_environment
   @@dk_nemid_environment = 'ocesii_danid_env_prod'
 
+  mattr_accessor :dk_nemid_certificate_path
+  @@dk_nemid_certificate_path = 'nemid'
+
   mattr_accessor :dk_nemid_certificate_password
   @@dk_nemid_certificate_password
 
