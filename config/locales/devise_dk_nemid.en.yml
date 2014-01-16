@@ -1,5 +1,7 @@
 en:
   devise:
+    nemid_sessions:
+      signed_in: "Nemid signup successful"
     dk_nemid:
       no_signature_properties: "Nemid response has no signature properties"
       challenge_incorrect: "Challenge not correct. Please try again"
@@ -16,7 +18,7 @@ en:
           title: "Directly to main content"
           text: "Main content"
       login:
-        keycard: "Login with keycard"
+        otp: "Login with keycard"
         software: "Login with key file"
         digitalsignatur: "Login with Digital Signature"
       access:

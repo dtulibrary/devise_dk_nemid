@@ -8,7 +8,6 @@ ActionDispatch::Routing::Mapper.class_eval do
       :controller => controllers[:dk_nemid_sessions] do
       get :new, :path => mapping.path_names[:sign_in], :as => "new"
       post :create, :path => mapping.path_names[:sign_in], :as => "create"
-      get :create, :path => 'test', :as => "create"
       match :destroy, :path => mapping.path_names[:sign_out], :as => "destroy"
     end
   end

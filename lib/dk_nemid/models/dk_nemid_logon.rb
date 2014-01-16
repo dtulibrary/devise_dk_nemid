@@ -63,8 +63,11 @@ module Devise
         applet_tag += app_param_tags(signed_parameters)
         applet_tag += app_param_tags(unsigned_parameters)
         applet_tag += "</applet>\n";
-        #applet_tag.html_safe
-        "applet"
+        applet_tag.html_safe
+      end
+
+      def number_login_options
+        Devise.dk_nemid_allowed.count
       end
 
       def get_signed_otp_parameters(cert_base64)
@@ -138,10 +141,8 @@ module Devise
 
       def applet_language
         case I18n.locale
-        when 'da'
-        when 'en'
-        when 'kl'
-          I18n.locale
+        when :da, :en, :kl
+          I18n.locale.to_s
         else
           'da'
         end

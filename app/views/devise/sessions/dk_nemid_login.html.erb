@@ -1,6 +1,6 @@
 <!-- Create nemid login box -->
 
-  <div id="dk_nemid_skipToContent" class="accessibility">
+  <div id="dk_nemid_skipToContent" class="dk_nemid_accessibility">
     <dl class="dk_nemid">
       <dt class="dk_nemid">
          <%= t('devise.dk_nemid.shortcut.header',
@@ -31,32 +31,13 @@
   <div id="dk_nemid_header_wrapper">
     <div id="dk_nemid_header">
       <ul id="dk_nemid_tabs" class="dk_nemid">
-        <li class="<%= @login_type == 'otp' ? 'selected' : 'dk_nemid' %>">
-          <a href="<%= new_dk_nemid_user_session_path %>?login_type=otp"
-             accesskey="3" class="dk_nemid">
-            <span class="nemidLogo"></span>
-            <span><%= t('devise.dk_nemid.login.keycard',
-                        :default => 'transerr06') %></span>
-          </a>
-        </li>
-        <li class="<%= @login_type == 'software' ? 'selected' :
-            'dk_nemid' %>">
-          <a href="<%= new_dk_nemid_user_session_path %>?login_type=software"
-            accesskey="4" class="dk_nemid">
-            <span class="nemidLogo"></span>
-            <span><%= t('devise.dk_nemid.login.software',
-                        :default => 'transerr07') %></span>
-          </a>
-        </li>
-        <li class="<%= @login_type == 'digitalsignatur' ? 'selected' :
-            'dk_nemid' %>">
-          <a href="<%= new_dk_nemid_user_session_path %>?login_type=digitalsignatur" 
-            accesskey="5" class="dk_nemid">
-            <span class="digitalSignaturLogo"></span>
-            <span><%= t('devise.dk_nemid.login.digitalsignatur',
-                        :default => 'transerr08') %></span>
-          </a>
-        </li>
+        <%= render :partial => 'dk_nemid_login_option', :locals => {
+              :type => 'otp', :accesskey => '3', :logo => 'nemidLogo' } %>
+        <%= render :partial => 'dk_nemid_login_option', :locals => {
+              :type => 'software', :accesskey => '4', :logo => 'nemidLogo' } %>
+        <%= render :partial => 'dk_nemid_login_option', :locals => {
+              :type => 'digitalsignatur', :accesskey => '5',
+              :logo => 'digitalSignaturLogo' } %>
       </ul>
     </div>
   </div>
@@ -87,9 +68,11 @@
             <%= @nemid.generate_logon_applet_element(@login_type) %>
             <form name="signedForm" method="post"
               action="<%= create_dk_nemid_user_session_path %>">
+              <%= token_tag(nil) %>
               <input type="hidden" name="signature">
               <input type="hidden" name="result">
             </form>
+            <% if @nemid.number_login_options > 1 %>
             <p class="dk_nemid_remember">
               <input type="checkbox" name="<%= @remember %>"
                 id="<%= @remember %>" />
@@ -98,6 +81,7 @@
                   :default => 'transerr12') %>
               </label>
             </p>
+            <% end %>
           </fieldset>
         </div>
         <div id="dk_nemid_right_col">

@@ -11,6 +11,9 @@ module Devise
   mattr_accessor :dk_nemid_certificate_password
   @@dk_nemid_certificate_password
 
+  mattr_accessor :dk_nemid_allowed
+  @@dk_nemid_allowed = ['otp', 'software', 'digitalsignatur']
+
   mattr_accessor :dk_nemid_cpr_service
   @@dk_nemid_cpr_service = :none
 

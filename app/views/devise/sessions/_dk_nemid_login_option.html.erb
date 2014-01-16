@@ -1,0 +1,10 @@
+<% if Devise.dk_nemid_allowed.include? type %>
+    <li class="<%= @login_type == type ? 'selected' : 'dk_nemid' %>">
+      <a href="<%= new_dk_nemid_user_session_path %>?login_type=<%= type %>"
+         accesskey="<%= accesskey %>" class="dk_nemid">
+        <span class="<%= logo %>"></span>
+        <span><%= t(type, :scope => 'devise.dk_nemid.login',
+                    :default => 'transerr06') %></span>
+      </a>
+    </li>
+<% end %>

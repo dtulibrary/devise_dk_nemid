@@ -17,8 +17,7 @@ module Devise::Strategies
       begin
         doc = Devise::Models::DkNemidDocument.new(Base64.decode64(
           params[:signature]))
-        unless doc.verify_logon(encode(
-            session[:devise_dk_nemid_challenge]))
+        unless doc.verify_logon(encode("#{params[:challenge]}"))
           logger.info "DkNemid strategy failed with #{doc.error}"
           fail(doc.error)
           return
@@ -27,6 +26,7 @@ module Devise::Strategies
         logger.error "DkNemid strategy failed with '#{doc.error}' and "+
           "'#{e.message}' from "+
           "#{params[:signature]}"
+        logger.info "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
         fail(I18n.t('devise.dk_nemid.failure'))
         return
       end

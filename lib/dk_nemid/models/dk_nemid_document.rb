@@ -53,7 +53,7 @@ module Devise::Models
       unless @signature_properties['challenge'] == challenge
         @error = I18n.t('devise.dk_nemid.challenge_incorrect')
         logger.info("Challenge failed. Expected #{challenge}, "+
-          " got #{@signature_properties['challenge']}")
+          "got #{@signature_properties['challenge']}")
         return false
       end
       unless logonto.nil?
