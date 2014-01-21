@@ -14,7 +14,6 @@ module Savon
     define_method(:configure_ssl) do
       old_configure_ssl.bind(self).()
       props = Devise::Models::DkNemidProperties.instance
-      @http_request.auth.ssl.ca_cert_file = props.ca_file
       @http_request.auth.ssl.cert = props.my_cert.certificate
       @http_request.auth.ssl.cert_key = props.my_key
     end

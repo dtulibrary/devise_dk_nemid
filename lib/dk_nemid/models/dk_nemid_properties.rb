@@ -36,6 +36,8 @@ class Devise::Models::DkNemidProperties
     @my_cert_base64 = clean_base64(@my_cert.certificate)
 
     @danid_certs = OpenSSL::X509::Store.new
+    # If needed this will load "default" certs into the store
+    #@danid_certs.set_default_path
     @danid_certs.add_file(ca_file)
     # Load configuration for the current environment
     config = YAML.load(File.read( File.expand_path(
