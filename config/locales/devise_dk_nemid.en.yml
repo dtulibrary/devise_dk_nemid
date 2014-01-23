@@ -10,7 +10,7 @@ en:
       wrong_cert_type: "Can't determine certificate type"
       failure: "Failure to validate Nemid logon"
       shortcut:
-        header: "Shortcuts:"
+        header: "Links:"
         login:
           title: "Directly to login choice"
           text: "Login choice"
@@ -47,3 +47,6 @@ en:
       forgot:
         text: "Forgotten password"
         title: "Click here if you have forgotten your password"
+      security:
+        header: "Security"
+        text: "Log off and close all browser windows when you have finished using services that require NemID login."

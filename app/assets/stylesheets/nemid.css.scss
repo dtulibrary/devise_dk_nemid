@@ -129,7 +129,7 @@ legend.dk_nemid {
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 #dk_nemid_header_wrapper {
   width: 100%;
-  background: #002a50 image_url('tabmenu.png') repeat-x 0 100%;
+  background: #ecf1f0;
 }
 #dk_nemid_header {
   position: relative;
@@ -169,8 +169,21 @@ legend.dk_nemid {
   }
 }
 
-.button-wrapper        { position: absolute; bottom: 8px; right: 1px; }
-.button-wrapper a       { float: left; margin-right: 5px; padding: 0 57px; line-height: 24px; display: block; color: #fff; background: #ff8a2c; }
+.button-wrapper {
+  position: absolute;
+  bottom: 8px;
+  right: 1px;
+
+  a {
+    float: left;
+    margin-right: 5px;
+    padding: 0 57px;
+    line-height: 24px;
+    display: block;
+    color: #ffffff;
+    background: #ff8a2c;
+  }
+}
 
 /* tab menu */
 ul#dk_nemid_tabs {
@@ -198,7 +211,7 @@ ul#dk_nemid_tabs {
         padding: 12px 30px 10px 14px;
         font-size: 1.166em;
         line-height: 24px;
-        color: #fff;
+        color: #fffffff;
         cursor: pointer;
       }
     }
@@ -262,7 +275,7 @@ ul#dk_nemid_tabs {
 #dk_nemid_content_wrapper {
   width: 100%;
   min-height: 600px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 #dk_nemid_content {
   position: relative;
@@ -274,7 +287,7 @@ ul#dk_nemid_tabs {
 
 #dk_nemid_right_col {
   float: left;
-  width: 365px;
+  width: 265px;
   margin-left: 70px;
 }
 
@@ -296,10 +309,10 @@ ul.dk_nemid_linkList a {
 
 a.dk_nemid_btn {
   padding: 2px 15px;
-  color: #000;
+  color: #000000;
   border-top: 1px solid #d0d0d0;
   border-bottom: 1px solid #d0d0d0;
-  background: #fff;
+  background: #ffffff;
 }
 
 /* Application placeholder */

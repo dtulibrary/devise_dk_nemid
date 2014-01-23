@@ -111,6 +111,7 @@
                    :default => 'transerr15') %>
           </h2>
           <ul class="dk_nemid_linkList">
+<!--
             <li>
               <%= link_to t('devise.dk_nemid.help.text',
                       :default => 'transerr16'),
@@ -118,6 +119,7 @@
                     :title => t('devise.dk_nemid.help.title',
                       :default => 'transerr17') %>
             </li>
+-->
             <li>
               <%= link_to t('devise.dk_nemid.order.text',
                             :default => 'transerr18'),
@@ -134,6 +136,16 @@
                             :default => 'transerr21') %>
             </li>
           </ul>
+        </div>
+        <div id="dk_nemid_right_col">
+          <h2 class="dk_nemid">
+            <%= t('devise.dk_nemid.security.header',
+                   :default => 'transerr22') %>
+          </h2>
+          <p>
+            <%= t('devise.dk_nemid.security.text',
+                   :default => 'transerr23').html_safe %>
+          </p>
         </div>
       </div>
     </div>
