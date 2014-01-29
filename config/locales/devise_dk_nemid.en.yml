@@ -1,7 +1,7 @@
 en:
   devise:
     nemid_sessions:
-      signed_in: "Nemid signup successful"
+      signed_in: "Nemid login successful"
     dk_nemid:
       no_signature_properties: "Nemid response has no signature properties"
       challenge_incorrect: "Challenge not correct. Please try again"

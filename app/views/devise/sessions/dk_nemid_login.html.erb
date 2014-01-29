@@ -17,7 +17,7 @@
       <dd class="dk_nemid">
         <a href="#dk_nemid_content"
            title="<%= t('devise.dk_nemid.shortcut.menu.title',
-             :default => 'transerr04') %> accesskey="2" class="dk_nemid">
+             :default => 'transerr04') %>" accesskey="2" class="dk_nemid">
           <%= t('devise.dk_nemid.shortcut.menu.text',
                 :default => 'transerr05') %>
         </a>
@@ -28,6 +28,7 @@
   <%= render :partial => 'local_information' %>
 
   <!-- container for header section -->
+  <% if @nemid.number_login_options > 1 %>
   <div id="dk_nemid_header_wrapper">
     <div id="dk_nemid_header">
       <ul id="dk_nemid_tabs" class="dk_nemid">
@@ -41,9 +42,11 @@
       </ul>
     </div>
   </div>
+  <% end %>
 
   <div id="dk_nemid_content_wrapper">
     <div id="dk_nemid_content">
+      <% if false %>
       <div class="dk_nemid_tools">
         <ul>
           <li id="dk_nemid_speaker">
@@ -58,6 +61,7 @@
           </li>
         </ul>
       </div>
+      <% end %>
       <div id="dk_nemid_login_wrapper">
         <div id="dk_nemid_app_placeholder">
           <fieldset class="dk_nemid">
@@ -84,6 +88,7 @@
             <% end %>
           </fieldset>
         </div>
+        <% if false %>
         <div id="dk_nemid_right_col">
           <ul class="dk_nemid_thumbs">
             <li>
@@ -137,6 +142,7 @@
             </li>
           </ul>
         </div>
+        <% end %>
         <div id="dk_nemid_right_col">
           <h2 class="dk_nemid">
             <%= t('devise.dk_nemid.security.header',

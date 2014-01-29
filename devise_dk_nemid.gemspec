@@ -2,7 +2,7 @@
 require 'rake'
 Gem::Specification.new do |spec|
   spec.name = 'devise_dk_nemid'
-  spec.version = '1.0.4'
+  spec.version = '1.0.5'
 
   spec.authors = [ 'Morten Rønne' ]
   spec.required_ruby_version = '>= 1.9.2'
