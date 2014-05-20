@@ -29,6 +29,15 @@ module Devise
   mattr_accessor :dk_nemid_proxy
   @@dk_nemid_proxy = nil
 
+  mattr_accessor :dk_nemid_test_mode
+  @@dk_nemid_test_mode = nil
+
+  mattr_accessor :dk_nemid_test_pid
+  @@dk_nemid_test_pid = nil
+
+  mattr_accessor :dk_nemid_test_cpr
+  @@dk_nemid_test_cpr = nil
+
 end
 
 Devise.add_module(:dk_nemid,

@@ -1,0 +1,10 @@
+<!-- Create nemid login box -->
+<%= form_tag(create_dk_nemid_user_session_path, :method => :post ) do %>
+  <div class="row">
+    <div class="span3">
+      <button type="submit" class="btn">
+        <%= 'Validate NemID' %>
+      </button>
+    </div>
+  </div>
+<% end %>

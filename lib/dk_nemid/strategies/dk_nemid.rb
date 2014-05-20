@@ -4,10 +4,14 @@ require 'dk_nemid/models/dk_nemid_document'
 module Devise::Strategies
   class DkNemidAuthenticatable < Authenticatable
     def valid?
-      valid_params?
+      Devise.dk_nemid_test_mode || valid_params?
     end
  
     def authenticate!
+      if Devise.dk_nemid_test_mode
+        return test_mode_resource
+      end
+
       result = Base64.decode64(params[:result])
       if result != "ok"
         # Result is an error code from Nemid
@@ -55,6 +59,20 @@ module Devise::Strategies
 
     def encode(param)
       Base64.encode64(param).gsub("\n", "")
+    end
+
+    def test_mode_resource
+      resource = mapping.to.where(:identifier => Devise.dk_nemid_test_pid ).first
+      if resource.nil?
+        # TODO: Only use cpr if cpr_service is enabled
+        resource = mapping.to.create(
+          :identifier => Devise.dk_nemid_test_pid,
+          :cpr => Devise.dk_nemid_test_cpr,
+          :cvr => nil
+        )
+      end
+      logger.info "DkNemid in test mode. Returning resource #{resource.inspect}"
+      success!(resource)
     end
 
   end

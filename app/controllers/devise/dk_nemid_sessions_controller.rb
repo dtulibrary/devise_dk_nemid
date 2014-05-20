@@ -3,6 +3,11 @@ require 'dk_nemid/models/dk_nemid_logon'
 class Devise::DkNemidSessionsController < Devise::SessionsController
   SESSION_CHALLENGE_NAME = 'devise_dk_nemid_challenge'
   def new
+    if Devise.dk_nemid_test_mode
+      logger.info "DkNemid in test mode. Bypassing Nemid login."
+      render :dk_nemid_login_test_mode and return
+    end
+
     # Create class which can do nemid stuff
     @nemid = Devise::Models::DkNemidLogon.new
     session[SESSION_CHALLENGE_NAME] = @nemid.create_challenge
