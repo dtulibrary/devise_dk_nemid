@@ -1,14 +1,14 @@
 en:
   devise:
     nemid_sessions:
-      signed_in: "Nemid login successful"
+      signed_in: "NemID login successful"
     dk_nemid:
       no_signature_properties: "Nemid response has no signature properties"
       challenge_incorrect: "Challenge not correct. Please try again"
       wrong_content_length: "Expected signed content length 1, but found %{count}"
       cert_verify_failed: "Certificate verification failed %{code} - %{reason}"
       wrong_cert_type: "Can't determine certificate type"
-      failure: "Failure to validate Nemid logon"
+      failure: "Failure to validate NemID logon"
       shortcut:
         header: "Links:"
         login:

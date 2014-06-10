@@ -1,0 +1,156 @@
+<!-- Create nemid login box -->
+
+  <div id="dk_nemid_skipToContent" class="dk_nemid_accessibility">
+    <dl class="dk_nemid">
+      <dt class="dk_nemid">
+         <%= t('devise.dk_nemid.shortcut.header',
+               :default => 'transerr01') %>
+      </dt>
+      <dd class="dk_nemid">
+        <a href="#dk_nemid_tabs"
+           title="<%= t('devise.dk_nemid.shortcut.login.title',
+             :default => 'transerr02') %>" accesskey="1" class="dk_nemid">
+          <%= t('devise.dk_nemid.shortcut.login.text',
+                :default => 'transerr03') %>
+        </a>
+      </dd>
+      <dd class="dk_nemid">
+        <a href="#dk_nemid_content"
+           title="<%= t('devise.dk_nemid.shortcut.menu.title',
+             :default => 'transerr04') %>" accesskey="2" class="dk_nemid">
+          <%= t('devise.dk_nemid.shortcut.menu.text',
+                :default => 'transerr05') %>
+        </a>
+      </dd>
+    </dl>
+  </div>
+
+  <!-- container for header section -->
+  <% if @nemid.number_login_options > 1 %>
+  <div id="dk_nemid_header_wrapper">
+    <div id="dk_nemid_header">
+      <ul id="dk_nemid_tabs" class="dk_nemid">
+        <%= render :partial => 'dk_nemid_login_option', :locals => {
+              :type => 'otp', :accesskey => '3', :logo => 'nemidLogo' } %>
+        <%= render :partial => 'dk_nemid_login_option', :locals => {
+              :type => 'software', :accesskey => '4', :logo => 'nemidLogo' } %>
+        <%= render :partial => 'dk_nemid_login_option', :locals => {
+              :type => 'digitalsignatur', :accesskey => '5',
+              :logo => 'digitalSignaturLogo' } %>
+      </ul>
+    </div>
+  </div>
+  <% end %>
+
+  <div id="dk_nemid_content_wrapper">
+    <div id="dk_nemid_content">
+      <% if false %>
+      <div class="dk_nemid_tools">
+        <ul>
+          <li id="dk_nemid_speaker">
+            <a href="http://adgangforalle.dk" rel="external"
+               title="<%= t('devise.dk_nemid.access.title',
+                 :default => 'transerr09') %>" class="dk_nemid">
+              <span class="dk_nemid_accessibility">
+                <%= t('devise.dk_nemid.access.text',
+                  :default => 'transerr10') %>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <% end %>
+      <div id="dk_nemid_login_wrapper">
+        <div id="dk_nemid_app_placeholder">
+          <fieldset class="dk_nemid">
+            <legend class="dk_nemid">
+              <%= t("devise.dk_nemid.#{@login_type}.login",
+                    :default => 'transerr11') %>
+            </legend>
+            <%= @nemid.generate_logon_applet_element(@login_type) %>
+            <form name="signedForm" method="post"
+              action="<%= create_dk_nemid_user_session_path %>">
+              <%= token_tag(nil) %>
+              <input type="hidden" name="signature">
+              <input type="hidden" name="result">
+            </form>
+            <% if @nemid.number_login_options > 1 %>
+            <p class="dk_nemid_remember">
+              <input type="checkbox" name="<%= @remember %>"
+                id="<%= @remember %>" />
+              <label for="<%= @remember %>">
+                <%= t("devise.dk_nemid.#{@login_type}.remember",
+                  :default => 'transerr12') %>
+              </label>
+            </p>
+            <% end %>
+          </fieldset>
+        </div>
+        <% if false %>
+        <div id="dk_nemid_right_col">
+          <ul class="dk_nemid_thumbs">
+            <li>
+              <span>
+                <%= image_tag "#{@login_type}_lille.png",
+                    :alt => t("devise.dk_nemid.image.#{@login_type}",
+                      :default => 'transerr13'),
+                    :title => t("devise.dk_nemid.image.#{@login_type}",
+                      :default => 'transerr13'),
+                    :class => 'dk_nemid' %>
+                <% if @login_type == "software" %>
+                <%= image_tag "hardware_lille.png",
+                    :alt => t("devise.dk_nemid.image.hardware",
+                      :default => 'transerr14'),
+                    :title => t("devise.dk_nemid.image.hardware",
+                      :default => 'transerr14'),
+                    :class => 'dk_nemid' %>
+                <% end %>
+              </span>
+            </li>
+          </ul>
+
+          <h2 class="dk_nemid">
+            <%= t('devise.dk_nemid.shortcut.header',
+                   :default => 'transerr15') %>
+          </h2>
+          <ul class="dk_nemid_linkList">
+<!--
+            <li>
+              <%= link_to t('devise.dk_nemid.help.text',
+                      :default => 'transerr16'),
+                    'https://www.nemid.nu/',
+                    :title => t('devise.dk_nemid.help.title',
+                      :default => 'transerr17') %>
+            </li>
+-->
+            <li>
+              <%= link_to t('devise.dk_nemid.order.text',
+                            :default => 'transerr18'),
+                    'https://www.nemid.nu/borger/bestil_nemid',
+                    :title => t('devise.dk_nemid.order.title',
+                            :default => 'transerr19') %>
+            </li>
+            <li>
+              <%= link_to t('devise.dk_nemid.forgot.text',
+                            :default => 'transerr20'),
+                    'https://www.nemid.nu/support/'+
+                    'bruger-id_og_adgangskode/glemt_adgangskode/',
+                    :title => t('devise.dk_nemid.forgot.title',
+                            :default => 'transerr21') %>
+            </li>
+          </ul>
+        </div>
+        <% end %>
+        <div id="dk_nemid_right_col">
+          <h2 class="dk_nemid">
+            <%= t('devise.dk_nemid.security.header',
+                   :default => 'transerr22') %>
+          </h2>
+          <p>
+            <%= t('devise.dk_nemid.security.text',
+                   :default => 'transerr23').html_safe %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
