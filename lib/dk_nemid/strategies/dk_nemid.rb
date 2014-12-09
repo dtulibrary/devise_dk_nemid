@@ -12,15 +12,14 @@ module Devise::Strategies
         return test_mode_resource
       end
 
-      result = Base64.decode64(params[:result])
-      if result != "ok"
+      response = Base64.decode64(params[:response])
+      if response.length < 10 
         # Result is an error code from Nemid
         fail(I18n.t(result, :scope => 'devise.dk_nemid'))
       end
 
       begin
-        doc = Devise::Models::DkNemidDocument.new(Base64.decode64(
-          params[:signature]))
+        doc = Devise::Models::DkNemidDocument.new(response)
         unless doc.verify_logon(encode("#{params[:challenge]}"))
           logger.info "DkNemid strategy failed with #{doc.error}"
           fail(doc.error)

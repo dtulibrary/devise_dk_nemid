@@ -22,7 +22,7 @@ class Devise::Models::DkNemidProperties
   attr_accessor  :ldap_server_danid, :ldap_ca_dn_danid, :crl_searchbase,
     :pid_service_url, :rid_service_url, :poces_policy_prefix,
     :moces_policy_prefix, :voces_policy_prefix, :foces_policy_prefix,
-    :nemid_applet_server_url, :oces_applet_server_url, :oces_applet_name
+    :oces_applet_server_url, :oces_applet_name, :nemid_iframe_server_url
 
   def initialize
     @my_cert = OpenSSL::PKCS12::new( File.read(
@@ -77,6 +77,11 @@ class Devise::Models::DkNemidProperties
 
   def pid_soap_client
     @pid_soap_client ||= create_pid_soap_client
+  end
+
+  def nemid_iframe_server_url_unique(mode)
+    t = Time.now
+    nemid_iframe_server_url + "/launcher/#{mode}/#{t.to_i}#{t.usec}"
   end
 
   private

@@ -73,3 +73,28 @@
     document.signedForm.result.value=msg;
     document.signedForm.submit();
   }
+
+  function onNemidMessage(e) {
+    var event = e || event;
+    var win = document.getElementById("nemid_iframe").contentWindow,
+      postMessage = {}, message;
+    message = JSON.parse(event.data);
+
+    if (message.command == "SendParameters") {
+      var htmlParameters = document.getElementById("nemid_parameters").
+        innerHTML;
+      postMessage.command = "Parameters";
+      postMessage.content = htmlParameters;
+      win.postMessage(JSON.stringify(postMessage), "https://applet.danid.dk");
+    }
+    if (message.command == "changeResponseAndSubmit") {
+      document.NemIDPostBack.response.value = message.content;
+      document.NemIDPostBack.submit();
+    }
+  }
+
+  if(window.addEventListener) {
+    window.addEventListener("message", onNemidMessage);
+  } else if (window.attachEvent) {
+    window.attachEvent("onmessage", onNemidMessage);
+  }

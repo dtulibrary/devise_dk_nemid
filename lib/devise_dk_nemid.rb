@@ -20,6 +20,9 @@ module Devise
   mattr_accessor :dk_nemid_cpr_failures
   @@dk_nemid_cpr_failures = 5
 
+  mattr_accessor :dk_nemid_request_issuer_id
+  @@dk_nemid_request_issuer_id = ''
+
   mattr_accessor :dk_nemid_cpr_pid_spid
   @@dk_nemid_cpr_pid_spid = ''
 

@@ -46,10 +46,11 @@ Each will be explained further down.
   Devise.dk_nemid_certificate_path = 'nemid'
   Devise.dk_nemid_allowed = ['otp', 'software', 'digitalsignatur']
 
-  Devise.dk_nemid_cpr_service = 'none'
+  Devise.dk_nemid_cpr_service = :none
   Devise.dk_nemid_cpr_failures = 5
   Devise.dk_nemid_cpr_pid_spid = 'id'
   Devise.dk_nemid_cpr_rid_spid = 'id'
+  Devise.dk_nemid_request_issuer_id = 'id'
 
   Devise.dk_nemid_proxy = 'http://proxy:80'
 
@@ -95,6 +96,9 @@ cpr_rid_spid
 
 proxy
   See section named "Cpr Service" for further information.
+
+request_issuer_id
+  TjenesteUdbyder ID from nets. May be prefixed with zeroes.
 
 Cpr Service
 -----------

@@ -1,5 +1,7 @@
 <!-- Create nemid login box -->
 
+<%= @nemid.generate_json_parameters(@login_type) %>
+
   <div id="dk_nemid_skipToContent" class="dk_nemid_accessibility">
     <dl class="dk_nemid">
       <dt class="dk_nemid">
@@ -67,12 +69,11 @@
               <%= t("devise.dk_nemid.#{@login_type}.login",
                     :default => 'transerr11') %>
             </legend>
-            <%= @nemid.generate_logon_applet_element(@login_type) %>
-            <form name="signedForm" method="post"
+            <%= @nemid.generate_iframe_element(@login_type) %>
+            <form name="NemIDPostBack" method="post"
               action="<%= create_dk_nemid_user_session_path %>">
               <%= token_tag(nil) %>
-              <input type="hidden" name="signature">
-              <input type="hidden" name="result">
+              <input type="hidden" name="response" value="">
             </form>
             <% if @nemid.number_login_options > 1 %>
             <p class="dk_nemid_remember">

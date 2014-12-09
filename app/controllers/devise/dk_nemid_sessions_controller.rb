@@ -30,5 +30,4 @@ class Devise::DkNemidSessionsController < Devise::SessionsController
     params[:challenge] = session[SESSION_CHALLENGE_NAME]
     super
   end
-
 end

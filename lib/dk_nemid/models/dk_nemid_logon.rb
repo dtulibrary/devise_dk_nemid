@@ -5,10 +5,8 @@ require 'dk_nemid/models/dk_nemid_properties'
 module Devise
   module Models
     class DkNemidLogon
-      OTP_APPLET = "DANID_DIGITAL_SIGNATUR"
-      OTP_CODE_CLASS = 'dk.pbs.applet.bootstrap.BootApplet'
       SOFTWARE_APPLET = 'applet'
-      SOFTWARE_CODE_CLASS = 
+      SOFTWARE_CODE_CLASS =
         'org.openoces.opensign.client.applet.bootstrap.BootApplet'
 
       def initialize
@@ -17,17 +15,19 @@ module Devise
         @log_level = nil
       end
 
-      def generate_logon_applet_element(login_type)
+      def generate_setup
         @props ||= DkNemidProperties.instance
-        file = File.expand_path("nemid/#{Devise.dk_nemid_environment}.p12",
-          Rails.root)
         @signer = @props.my_cert
         @signkey = @props.my_key
 
         # Make sure we have a challenge
         create_challenge
+      end
 
-        # signedParamters Hash with case insensitive keys
+      def generate_json_parameters(login_type)
+        generate_setup
+
+        # signedParameters Hash with case insensitive keys
         signed_parameters = send(
           "get_signed_#{login_type}_parameters",
           @props.my_cert_base64
@@ -38,32 +38,25 @@ module Devise
           signed_parameters
         )
 
-        case login_type
-        when "software", "digitalsignatur"
-          applet_name = SOFTWARE_APPLET
-          appletPath = @props.oces_applet_name
-          code_base = @props.oces_applet_server_url
-          code_class = SOFTWARE_CODE_CLASS
-        else
-          applet_name = OTP_APPLET
-          code_class = OTP_CODE_CLASS
-          t = Time.now
-          appletPath = @props.nemid_applet_server_url +
-            "/bootapplet/#{t.to_i}#{t.usec}"
-          code_base = nil
-        end
+        # JSON data structure to be parsed into NemID
+        json_tag = '<script type="text/x-nemidjson" id="nemid_parameters">' +
+          unsigned_parameters.to_json + "</script>\n"
+        Rails.logger.info "JSON " + json_tag
+        json_tag.html_safe
+      end
 
-        applet_tag = "<applet name=\"#{applet_name}\" tabindex=\"1\" " +
-          "archive=\"#{appletPath}\" " +
-          "code=\"#{code_class}\" " +
-          "WIDTH=\"#{applet_width(login_type)}\" " +
-          "HEIGHT=\"#{applet_height(login_type)}\" " +
-          (code_base ? "codebase=\"#{code_base}\" " : "") +
-          "mayscript=\"mayscript\">\n"
-        applet_tag += app_param_tags(signed_parameters)
-        applet_tag += app_param_tags(unsigned_parameters)
-        applet_tag += "</applet>\n";
-        applet_tag.html_safe
+      def generate_iframe_element(login_type)
+        generate_setup
+
+        # Iframe tag for NemID integration
+        # If limited mode is implemented 'std' should be changed
+        iframe_tag = '<iframe id="nemid_iframe" title="NemID" ' +
+          'allowfullscreen="true" scrolling="no" frameborder="0" ' +
+          "style=\"width:#{applet_width(login_type)}px;" +
+                  "height:#{applet_height(login_type)}px;border:0\" " +
+          "src=\"#{@props.nemid_iframe_server_url_unique('std')}\">\n"
+        iframe_tag += "</iframe>\n";
+        iframe_tag.html_safe
       end
 
       def number_login_options
@@ -72,13 +65,17 @@ module Devise
 
       def get_signed_otp_parameters(cert_base64)
         signed_parameters = Hash.new
-        signed_parameters['ZIP_FILE_ALIAS'] = zip_file_alias
-        signed_parameters['log_level'] = @log_level if @log_level
-        signed_parameters['paramcert'] = cert_base64
-        signed_parameters['ZIP_BASE_URL'] = @props.nemid_applet_server_url
-        signed_parameters['ServerUrlPrefix'] = @props.nemid_applet_server_url
-        signed_parameters['language'] = applet_language
-        signed_parameters['signproperties'] = "challenge=#{encode(@challenge)}"
+        signed_parameters['CLIENTFLOW'] = clientflow
+        signed_parameters['CLIENTMODE'] = "STANDARD"
+        signed_parameters['DO_NOT_SHOW_CANCEL'] = "FALSE"
+        signed_parameters['LANGUAGE'] = nemid_language
+        #signed_parameters['ORIGIN'] = "http://self"
+        #signed_parameters['REMEMBER_USER_ID'] = previous token
+        signed_parameters['REQUEST_ISSUER_ID'] = Devise.dk_nemid_request_issuer_id
+        signed_parameters['SIGN_PROPERTIES'] = "challenge=#{encode(@challenge)}"
+        signed_parameters['SP_CERT'] = cert_base64
+        t = DateTime.now.utc
+        signed_parameters['TIMESTAMP'] = t.strftime('%F %T%z')
         signed_parameters
       end
 
@@ -91,21 +88,22 @@ module Devise
       end
 
       def get_unsigned_otp_parameters(signed_parameters)
-        unsigned_parameters = default_unsigned_parameters
+        unsigned_parameters = signed_parameters
         param_string = normalized_parameters(signed_parameters)
-        unsigned_parameters['paramsdigest'] = calculate_digest(param_string)
-        unsigned_parameters['signeddigest'] = signer_digest(param_string)
+        unsigned_parameters['PARAMS_DIGEST'] = calculate_digest(param_string)
+        unsigned_parameters['DIGEST_SIGNATURE'] = signer_digest(param_string)
         unsigned_parameters
       end
 
       def get_unsigned_software_parameters(signed_parameters)
         unsigned_parameters = default_unsigned_parameters
+        unsigned_parameters['mayscript'] = "true";
         unsigned_parameters['ZIP_BASE_URL'] = @props.oces_applet_server_url +
           "/plugins"
         unsigned_parameters['MS_SUPPORT'] = "bcjce"
         unsigned_parameters['SUN_SUPPORT'] = "jsse"
         unsigned_parameters['STRIP_ZIP'] = "yes"
-        unsigned_parameters['EXTRA_ZIP_FILE_NAMES'] = 
+        unsigned_parameters['EXTRA_ZIP_FILE_NAMES'] =
           "capi,pkcs12,oces,cryptoki"
         unsigned_parameters['locale'] = "da,DK"
         unsigned_parameters['cabbase'] = @props.oces_applet_server_url +
@@ -134,12 +132,10 @@ module Devise
       end
 
       def default_unsigned_parameters
-        unsigned_parameters = Hash.new
-        unsigned_parameters['mayscript'] = "true";
-        unsigned_parameters
+        Hash.new
       end
 
-      def applet_language
+      def nemid_language
         case I18n.locale
         when :da, :en, :kl
           I18n.locale.to_s
@@ -149,20 +145,15 @@ module Devise
       end
 
       def applet_width(login_type)
-        case login_type
-        when "software", "digitalsignatur"
-          430
-        else
-          200
-        end
+        500
       end
 
       def applet_height(login_type)
-        250
+        450
       end
 
-      def zip_file_alias
-        "OpenLogon2"
+      def clientflow
+        "OCESLOGIN2"
       end
 
       def normalized_parameters(parameters)
@@ -171,7 +162,7 @@ module Devise
           a.upcase <=> b.upcase
         end
         sorted_keys.each do |k|
-          result += k.downcase + parameters[k]
+          result += k + parameters[k]
         end
         result
       end
