@@ -1,21 +1,21 @@
 require 'devise/strategies/authenticatable'
 require 'dk_nemid/models/dk_nemid_document'
- 
+
 module Devise::Strategies
   class DkNemidAuthenticatable < Authenticatable
     def valid?
       Devise.dk_nemid_test_mode || valid_params?
     end
- 
+
     def authenticate!
       if Devise.dk_nemid_test_mode
         return test_mode_resource
       end
 
       response = Base64.decode64(params[:response])
-      if response.length < 10 
+      if !response.start_with? '<?xml'
         # Result is an error code from Nemid
-        fail(I18n.t(result, :scope => 'devise.dk_nemid'))
+        fail(I18n.t(response, :scope => 'devise.dk_nemid'))
       end
 
       begin
@@ -28,7 +28,7 @@ module Devise::Strategies
       rescue StandardError => e
         logger.error "DkNemid strategy failed with '#{doc.error}' and "+
           "'#{e.message}' from "+
-          "#{params[:signature]}"
+          "#{params[:response]}"
         logger.info "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
         fail(I18n.t('devise.dk_nemid.failure'))
         return
@@ -49,7 +49,7 @@ module Devise::Strategies
     private
 
     def valid_params?
-      !(params[:signature].nil? || params[:result].nil?)
+      !(params[:response].nil?)
     end
 
     def logger
