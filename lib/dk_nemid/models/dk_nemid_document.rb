@@ -139,6 +139,7 @@ module Devise::Models
           end
         end
       end
+      logger.error "Did not find user certificate"
     end
 
     def get_certificate_data
