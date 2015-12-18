@@ -24,7 +24,6 @@ SUM
   spec.add_runtime_dependency("xmldsig", "~> 0.2")
   spec.add_runtime_dependency("jquery-cookie-rails", "~> 1.3")
 
-  spec.add_development_dependency("devise", "~> 3.2")
   spec.add_development_dependency('rspec')
 
 end

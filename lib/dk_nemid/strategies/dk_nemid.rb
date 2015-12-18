@@ -8,39 +8,40 @@ module Devise::Strategies
     end
 
     def authenticate!
-      if Devise.dk_nemid_test_mode
-        return test_mode_resource
-      end
+      #if Devise.dk_nemid_test_mode
+      #  return test_mode_resource
+      #end
 
-      response = Base64.decode64(params[:response])
-      if !response.start_with? '<?xml'
-        # Result is an error code from Nemid
-        fail(I18n.t(response, :scope => 'devise.dk_nemid'))
-      end
+      #response = Base64.decode64(params[:response])
+      #if !response.start_with? '<?xml'
+      #  # Result is an error code from Nemid
+      #  fail(I18n.t(response, :scope => 'devise.dk_nemid'))
+      #end
 
-      begin
-        doc = Devise::Models::DkNemidDocument.new(response)
-        unless doc.verify_logon(encode("#{params[:challenge]}"))
-          logger.info "DkNemid strategy failed with #{doc.error}"
-          fail(doc.error)
-          return
-        end
-      rescue StandardError => e
-        logger.error "DkNemid strategy failed with '#{doc.error}' and "+
-          "'#{e.message}' from "+
-          "#{params[:response]}"
-        logger.info "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
-        fail(I18n.t('devise.dk_nemid.failure'))
-        return
-      end
+      #begin
+      #  doc = Devise::Models::DkNemidDocument.new(response)
+      #  unless doc.verify_logon(encode("#{params[:challenge]}"))
+      #    logger.info "DkNemid strategy failed with #{doc.error}"
+      #    fail(doc.error)
+      #    return
+      #  end
+      #rescue StandardError => e
+      #  logger.error "DkNemid strategy failed with '#{doc.error}' and "+
+      #    "'#{e.message}' from "+
+      #    "#{params[:response]}"
+      #  logger.info "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
+      #  fail(I18n.t('devise.dk_nemid.failure'))
+      #  return
+      #end
 
-      resource = mapping.to.where(:identifier => doc.identifier).first
+      logger.debug "Params: #{params}"
+
+      resource = mapping.to.where(:cpr => cpr).first
       if resource.nil?
         # TODO: Only use cpr if cpr_service is enabled
         resource = mapping.to.create(
-           :identifier => doc.identifier,
-           :cpr => doc.cpr,
-           :cvr => doc.cvr
+           :identifier => 'N/A',
+           :cpr        => cpr,
         )
       end
       success!(resource)
@@ -48,9 +49,18 @@ module Devise::Strategies
 
     private
 
-    def valid_params?
-      !(params[:response].nil?)
+    def cpr
+      params['cpr1'].gsub(/\D/, '')
     end
+
+    def valid_params?
+      #!(params[:response].nil?)
+      cprs_valid? 
+    end
+
+    def cprs_valid?
+      params['cpr1'] && params['cpr1'].match(/^\d{6}-?\d{4}$/) && params['cpr1'] == params['cpr2']
+    end 
 
     def logger
       Rails.logger

@@ -27,7 +27,7 @@ class Devise::DkNemidSessionsController < Devise::SessionsController
   #     ok = all is good. Signature contains data
   #     all other = error text. Signature is empty
   def create
-    params[:challenge] = session[SESSION_CHALLENGE_NAME]
+    #params[:challenge] = session[SESSION_CHALLENGE_NAME]
     super
   end
 end
