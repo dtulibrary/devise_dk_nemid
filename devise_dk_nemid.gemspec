@@ -23,6 +23,7 @@ SUM
   spec.add_runtime_dependency("savon", "~> 2.3")
   spec.add_runtime_dependency("xmldsig", "~> 0.2")
   spec.add_runtime_dependency("jquery-cookie-rails", "~> 1.3")
+  spec.add_runtime_dependency("uuidtools", "~> 2.1")
 
   spec.add_development_dependency('rspec')
 

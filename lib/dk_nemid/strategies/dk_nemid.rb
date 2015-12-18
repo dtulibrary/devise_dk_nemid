@@ -1,5 +1,6 @@
 require 'devise/strategies/authenticatable'
 require 'dk_nemid/models/dk_nemid_document'
+require 'uuidtools'
 
 module Devise::Strategies
   class DkNemidAuthenticatable < Authenticatable
@@ -40,7 +41,7 @@ module Devise::Strategies
       if resource.nil?
         # TODO: Only use cpr if cpr_service is enabled
         resource = mapping.to.create(
-           :identifier => 'N/A',
+           :identifier => "N/A #{UUIDTools::UUID.timestamp_create}",
            :cpr        => cpr,
         )
       end
