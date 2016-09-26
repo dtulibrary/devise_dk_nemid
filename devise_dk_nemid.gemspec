@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name = 'devise_dk_nemid'
   spec.version = '1.0.7'
 
-  spec.authors = [ 'Morten Rønne' ]
+  spec.authors = [ 'Morten Roenne' ]
   spec.required_ruby_version = '>= 1.9.2'
   spec.summary = 'Devise NemID login extension'
   spec.description = 'Devise NemID authentication module'
